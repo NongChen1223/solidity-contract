@@ -3,14 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "scripts": {
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test_t1": "npx ts-node-dev test/T1_deployed_test.ts"
+    "test_t1": "npx ts-node-dev test/T1_deployed_test.ts",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "19.2.0",
+    "@commitlint/config-conventional": "19.1.0",
+    "@eslint/js": "^9.6.0",
     "@nomicfoundation/hardhat-ignition": "^0.15.0",
     "@nomicfoundation/hardhat-ignition-viem": "^0.15.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
@@ -25,14 +35,25 @@
     "@types/chai-as-promised": "^7.1.6",
     "@types/mocha": "^10.0.7",
     "@types/node": "^20.14.9",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "add": "^2.0.6",
     "chai": "^4.2.0",
+    "eslint": "^9.6.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "ethers": "^5.7.2",
+    "globals": "^15.8.0",
     "hardhat": "^2.22.6",
     "hardhat-gas-reporter": "^1.0.8",
+    "husky": "^9.0.11",
+    "prettier": "^3.3.2",
     "solidity-coverage": "^0.8.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "~5.0.4",
+    "typescript-eslint": "^7.15.0",
     "viem": "^2.7.6"
   },
   "dependencies": {
