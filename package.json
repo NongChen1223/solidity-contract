@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test_t1": "npx ts-node-dev test/T1_deployed_test.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,18 +24,21 @@
     "@types/chai": "^4.2.0",
     "@types/chai-as-promised": "^7.1.6",
     "@types/mocha": "^10.0.7",
-    "@types/node": ">=18.0.0",
+    "@types/node": "^20.14.9",
     "chai": "^4.2.0",
     "ethers": "^5.7.2",
     "hardhat": "^2.22.6",
     "hardhat-gas-reporter": "^1.0.8",
     "solidity-coverage": "^0.8.0",
-    "ts-node": ">=8.0.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "~5.0.4",
     "viem": "^2.7.6"
   },
   "dependencies": {
     "@types/jest": "^29.5.12",
-    "dotenv": "^16.4.5"
+    "@types/web3": "^1.2.2",
+    "dotenv": "^16.4.5",
+    "web3": "^4.10.0"
   }
 }

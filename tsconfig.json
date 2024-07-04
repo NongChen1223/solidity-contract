@@ -8,5 +8,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "types": ["jest"]
-  }
+  },
+  "include": ["./scripts", "./test", "./typechain", "./hardhat.config.ts"],
+  "exclude": ["node_modules"]
 }
