@@ -3,7 +3,6 @@ import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import nodePlugin from 'eslint-plugin-node';
 import prettierPlugin from 'eslint-plugin-prettier';
-
 export default [
   {
     files: ['**/*.ts', '**/*.tsx'],
