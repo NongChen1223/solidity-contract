@@ -40,14 +40,34 @@ async function createrMerkleTreeNode() {
 	console.log("打印tree", tree);
 	console.log("打印rootHash", rootHash);
 	console.log("打印第0个默克尔证明", proof);
-}
-function verifyUserInWhitelist() {
+
 	const verifyData = {
 		address:
 			"0x7aa2B38737F958d9F7f47C27aD0807d61e66f7fb",
 		amount: 10,
 	};
-	const leaf = keccak256(
+	const verifyleaf = keccak256(
 		`${verifyData.address}${verifyData.amount}`,
 	);
+	console.log(
+		"校验verifyData是否在MerkleTree中",
+		verifyUserInWhitelist(
+			verifyleaf,
+			proof,
+			rootHash,
+		),
+	);
 }
+function verifyUserInWhitelist(
+	userLeaf: Buffer,
+	proof: string[],
+	merkleRoot: string,
+): boolean {
+	return MerkleTree.verify(
+		proof,
+		userLeaf,
+		merkleRoot,
+		keccak256,
+	);
+}
+createrMerkleTreeNode();
