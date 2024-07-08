@@ -25,9 +25,9 @@ const WHITE_LIST: WhitelistEntry[] = [
 	},
 ];
 const WHITES = [
-	"0x7aa2B38737F958d9F7f47C27aD0807d61e66f7fb|10",
-	"0x6C8116a07dF82ADF5888093A58Ab2aa1a0956Eac|20",
-	"0x64913142f4528DB3eAdA8A8490a96b7d3bbF1d63|30",
+	"0x7aa2B38737F958d9F7f47C27aD0807d61e66f7fb",
+	"0x6C8116a07dF82ADF5888093A58Ab2aa1a0956Eac",
+	"0x64913142f4528DB3eAdA8A8490a96b7d3bbF1d63",
 ];
 
 //使用 keccak256 哈希函数为每个白名单条目创建默克尔树叶子
@@ -78,6 +78,7 @@ async function createMerkleTreeAndVerify(list: string[]) {
 		const leaf = keccak256(str);
 		const proof = merkleTree.getHexProof(leaf);
 		const isValid = merkleTree.verify(proof, leaf, rootHash);
+		console.log("proof", proof);
 		console.log(`验证字符串 "${str}" 是否在Merkle树中:`, isValid);
 	});
 }
