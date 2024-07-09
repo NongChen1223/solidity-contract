@@ -10,12 +10,13 @@ import "./T1.sol";
     3.清晰的版本管理：每次升级都创建一个新的合约版本，可以清晰地追踪合约的演变过程，便于审计和维护。
     4.安全性：减少对原有合约的修改，降低引入新漏洞的风险
 */
-contract T1_V2 {
-    address[] private whitelistAddresses;
-    uint256 private whitelistCount;
+contract T1_V2 is T1 {
+    // address[] private whitelistAddresses; 在原合约已经使用internal进行声明后则不需要在升级合约中再次声明，直接调用
 
     function initV2() public{
         require(msg.sender == owner, "Not the contract owner");
+        // 确保初始化代码仅运行一次
+        require(whitelistCount == 0, "Already initialized");
         whitelistCount = 1;
         whitelistAddresses.push(owner);
     }

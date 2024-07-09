@@ -1,19 +1,21 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 import "../interfaces/IExtendedERC20.sol";
-contract T1 is IERC20 {
-    string private _name; // 代币名称
-    string private _symbol; // 代币代号
-    uint8 private _decimals; // 代币精度
-    uint256 private _totalSupply; // 代币发行总量
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+
+contract T1 is IERC20,Initializable  {
+    string  private _name; // 代币名称
+    string  private _symbol; // 代币代号
     address public owner; // 合约发布者
+    address[] internal whitelistAddresses; // 存储所有白名单地址
+
+    uint8   private _decimals; // 代币精度
+    uint256 private _totalSupply; // 代币发行总量
+    uint256 internal  whitelistCount; // 白名单人数计数器
 
     mapping(address => uint256) private _balances; // 账本映射
-    mapping(address => mapping(address => uint256)) private _allowance; // 授权记录
-    mapping(address => bool) private whitelist; //白名单映射
-
-    address[] private whitelistAddresses; // 存储所有白名单地址
-    uint256 private whitelistCount; // 白名单人数计数器
+    mapping(address => mapping(address => uint256)) internal _allowance; // 授权记录
+    mapping(address => bool) internal whitelist; //白名单映射
 
     // 仅限所有者修饰符
     modifier onlyOwner() {
@@ -27,23 +29,43 @@ contract T1 is IERC20 {
         _;
     }
 
-    constructor(
+    /* 该函数在部署或升级时进行初始化,使用 Initializable 的目的是为了支持合约的可升级性 */
+    function initialize(
         string memory _initName,
         string memory _initSymbol,
         uint8 _initDecimals,
         uint256 _initTotalSupply
-    ) {
-        // 发布合约时设置代币名称、代号、精度和发行总量
+    ) public initializer {
         _name = _initName;
         _symbol = _initSymbol;
         _decimals = _initDecimals;
         _totalSupply = _initTotalSupply;
         owner = msg.sender;
-        // 在合约部署时把所有的代币发行给合约发布者
         _balances[owner] = _initTotalSupply;
-        // 将合约发布者添加到白名单
         whitelist[owner] = true;
     }
+
+    /*
+        使用了openzeppelin的Initializable后不需要要在合约中使用传统的构造函数
+        而是定义使用一个Initializable 函数
+        constructor(
+            string memory _initName,
+            string memory _initSymbol,
+            uint8 _initDecimals,
+            uint256 _initTotalSupply
+        ) {
+            // 发布合约时设置代币名称、代号、精度和发行总量
+            _name = _initName;
+            _symbol = _initSymbol;
+            _decimals = _initDecimals;
+            _totalSupply = _initTotalSupply;
+            owner = msg.sender;
+            // 在合约部署时把所有的代币发行给合约发布者
+            _balances[owner] = _initTotalSupply;
+            // 将合约发布者添加到白名单
+            whitelist[owner] = true;
+        }
+    */
 
     function name() external view override returns (string memory) {
         return _name;
@@ -151,13 +173,13 @@ contract T1 is IERC20 {
         return _allowance[_owner][_spender];
     }
 
-    // 添加地址到白名单，仅限合约所有者调用
-    function addToWhitelist(address _address) external onlyOwner {
+    // 添加地址到白名单，仅限合约所有者调用 其中virtual 主要作用是允许子合约修改父合约中定义的函数行为 可以被子合约重写
+    function addToWhitelist(address _address) external virtual  onlyOwner {
         whitelist[_address] = true;
     }
 
     // 从白名单移除地址，仅限合约所有者调用
-    function removeFromWhitelist(address _address) external onlyOwner {
+    function removeFromWhitelist(address _address) external virtual onlyOwner {
         whitelist[_address] = false;
     }
 }
