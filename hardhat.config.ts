@@ -7,15 +7,15 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 const config: HardhatUserConfig = {
-  solidity: "0.8.24",
-  networks: {
-    bscTestnet: {
-      url: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
-      chainId: 97,
-      gasPrice: 20000000000,
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
-    }
-  }
+	solidity: "0.8.24",
+	networks: {
+		bscTestnet: {
+			url: `https://endpoints.omniatech.io/v1/bsc/testnet/public/`,
+			chainId: 97,
+			gasPrice: 100000,
+			accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+		},
+	},
 };
 
 export default config;

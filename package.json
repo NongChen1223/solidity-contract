@@ -11,8 +11,11 @@
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test_t1": "npx ts-node-dev test/T1_deployed_test.ts",
+    "deployed_t1": "npx hardhat run scripts/t1.deploy.ts --network bscTestnet",
+    "deployed_t1_air": "npx hardhat run scripts/t1.air.deploy.ts --network bscTestnet",
+    "update_t1": "npx ts-node scripts/t1.upgrade.ts",
     "test_air_t1": "npx ts-node scripts/t1.air.deploy.ts",
+    "test_merkletree":"npx ts-node test/MerkleTree.ts",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -44,7 +47,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "ethers": "^5.7.2",
+    "ethers": "^6.0.0",
     "globals": "^15.8.0",
     "hardhat": "^2.22.6",
     "hardhat-gas-reporter": "^1.0.8",
@@ -58,6 +61,7 @@
     "viem": "^2.7.6"
   },
   "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@types/jest": "^29.5.12",
     "@types/web3": "^1.2.2",
     "dotenv": "^16.4.5",
