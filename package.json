@@ -11,11 +11,13 @@
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deployed_t1": "npx hardhat run scripts/t1.deploy.ts --network bscTestnet",
-    "deployed_t1_air": "npx hardhat run scripts/t1.air.deploy.ts --network bscTestnet",
+    "deployed_t1": "npx hardhat compile && npx hardhat run scripts/t1.deploy.ts --network opbnbTestnet",
+    "deployed_t1_air": "npx hardhat compile && npx hardhat run scripts/t1.air.deploy.ts --network opbnbTestnet",
+    "deployed_t1_air_test": "npx hardhat compile && npx hardhat run scripts/t1.test.air.deploy.ts --network opbnbTestnet",
+    "deployed_test_merkletree": "npx hardhat compile && npx hardhat run scripts/test_merkletree.deploy.ts --network opbnbTestnet",
     "update_t1": "npx ts-node scripts/t1.upgrade.ts",
-    "test_air_t1": "npx ts-node scripts/t1.air.deploy.ts",
-    "test_merkletree":"npx ts-node test/MerkleTree.ts",
+    "test_air_t1": "npx ts-node test/T1_airdop.ts",
+    "test_merkletree": "npx ts-node test/MerkleTree.ts",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -67,6 +69,7 @@
     "dotenv": "^16.4.5",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.4.0",
+    "undici": "^6.19.2",
     "web3": "^4.10.0"
   }
 }
