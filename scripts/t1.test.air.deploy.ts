@@ -2,24 +2,17 @@ import { ethers, upgrades } from "hardhat";
 import dotenv from "dotenv";
 dotenv.config();
 async function deployT1Airdrop() {
-	const Airdrop = await ethers.getContractFactory("T1_Airdrop");
+	const Airdrop = await ethers.getContractFactory("t1_airdrop");
 
 	const [owner] = await ethers.getSigners();
 
 	// 设置构造函数的初始参数
-	const tokenAddress = process.env.TOKEN_CONTRACT_ADDRESS_OPBNB;
+	const tokenAddress = process.env.CONTRACT_ADDRESS;
 	const merkleRoot = process.env.HASH_ROOT;
-
-	console.log(`
-	代币合约地址：${tokenAddress},
-	根哈希：${merkleRoot}
-		`);
 
 	// @ts-ignore
 	const airdrop = await upgrades.deployProxy(Airdrop, [tokenAddress, merkleRoot], {
 		initializer: "initialize",
-		timeout: 600000, // 10 minutes timeout
-		pollingInterval: 15000, // 15 seconds polling interval
 	});
 
 	console.log("...部署中");

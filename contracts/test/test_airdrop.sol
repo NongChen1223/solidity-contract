@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "../interfaces/IERC20.sol";
 import "../libs/MerkleProof.sol"; // 导入 MerkleProof 证明函数
 
-contract t1_airdrop is Ownable {
+contract t1_airdrop {
     using MerkleProof for bytes32[]; // 这个语法用于声明并导入库函数，以便在合约中方便地调用库中的函数
 
     IERC20 public token; // 代币合约实例
@@ -18,7 +18,7 @@ contract t1_airdrop is Ownable {
     event ClaimSuccess(address account, uint256 amount);
 
     // 构造函数
-    constructor(IERC20 _token, bytes32 _merkleRoot) Ownable(msg.sender) {
+    constructor(IERC20 _token, bytes32 _merkleRoot){
         token = _token;
         merkleRoot = _merkleRoot;
     }

@@ -16,7 +16,7 @@ async function deployT1() {
 	const _initDecimals = 2;
 
 	// @ts-ignore
-	const _initTotalSupply = ethers.parseUnits("1000000", _initDecimals); // 发行 1000000 代币
+	const _initTotalSupply = ethers.parseUnits("10000000", _initDecimals); // 发行 10000000 代币
 
 	/*
 	 * 传递构造函数参数并部署代理合约
@@ -32,7 +32,7 @@ async function deployT1() {
 	await token.waitForDeployment(); //token.deployed()已作废
 
 	// 铸造代币
-	await token.mint(10000);
+	await token.mint(100000);
 	const proxyAddress = await token.getAddress(); //token.address 已作废
 	console.log(`
     部署成功！！！！，
