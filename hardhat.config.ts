@@ -16,13 +16,13 @@ const config: HardhatUserConfig = {
 	solidity: "0.8.24",
 	networks: {
 		bscTestnet: {
-			url: "https://go.getblock.io/3faf56936fe140e1beadbe0711b28f33/",
+			url: process.env.WEB3_RPC_BSC,
 			chainId: 97,
 			gasPrice: 10000000,
 			accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
 		},
 		opbnbTestnet: {
-			url: "https://opbnb-testnet-rpc.bnbchain.org/",
+			url: process.env.WEB3_RPC_OPBNB,
 			chainId: 5611,
 			gasPrice: 10000000,
 			accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
