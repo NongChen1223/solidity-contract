@@ -29,14 +29,13 @@ contract T1_Airdrop is  UUPSUpgradeable, OwnableUpgradeable  {
     // 授权升级合约
     function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 
-    function claim(address account, uint256 amount, string calldata account_join, bytes32[] calldata proof) external {
+    function claim(address account, uint256 amount, bytes32[] calldata proof) external {
         require(!hasClaimed[account], "Airdrop: Tokens already claimed"); // 检查是否已领取
 
-        // 构建用于默克尔验证的节点 由于Solidity中没有自己的转字符串方法 改为在外部拼接好后传入内部校验
-         bytes32 node = keccak256(abi.encodePacked(account_join));
+        bytes32 node = keccak256(abi.encodePacked(account,amount));
 
         // 验证默克尔证明是否正确，确保数据未被篡改，且确实在白名单中
-        require(MerkleProof.verify(proof,merkleRoot, node), "Invalid proof.");
+        require(MerkleProof.verify(proof,merkleRoot, node), "Invalid proof!!");
 
         // 发放空投代币
         require(token.transfer(account, amount), "Token transfer failed");
@@ -47,7 +46,6 @@ contract T1_Airdrop is  UUPSUpgradeable, OwnableUpgradeable  {
         // 校验成功 存在白名单
         emit ClaimSuccess(account);
     }
-
     // 获取合约的代币余额
     function getBalance() external view returns (uint256) {
         return token.balanceOf(address(this));
