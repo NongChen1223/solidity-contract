@@ -1,5 +1,5 @@
 # solidity-contract
-
+主要用于学习hardhat发布solidity的合约以及各类基本合约，仅供学习参考！！！
 # example.env
 
 ```
