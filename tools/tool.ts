@@ -2,7 +2,7 @@ import Web3 from "web3";
 import dotenv from "dotenv";
 dotenv.config();
 // 初始化 Web3 实例
-const web3 = new Web3(process.env.WEB3_RPC);
+const web3 = new Web3(process.env.WEB3_RPC_OPBNB);
 /**
  * @description: 数据类型转换为ABI的类型
  * @param param:string | Object 数字类型
