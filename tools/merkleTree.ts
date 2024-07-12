@@ -8,8 +8,8 @@ type WhitelistEntry = {
 };
 /**
  * @description: 使用 keccak256 函数为每个字符串创建默克尔树叶子
- * @param strings[]
- * @return Buffer[]
+ * @param {WhitelistEntry[]} strings 拼接数组
+ * @return {Buffer[]}
  * @date 2024/07/09 15:18:52
  */
 function createLeaves(strings: WhitelistEntry[]): Buffer[] {
@@ -17,8 +17,9 @@ function createLeaves(strings: WhitelistEntry[]): Buffer[] {
 }
 /**
  * @description: 拼接address和amount的Buffer
- * @param address:string
- * @return amount:string
+ * @param {string} address 钱包地址
+ * @param {number} amount 领取数量
+ * @return {Buffer} 拼接生成的Buffer
  * @date 2024/07/09 15:18:52
  */
 function bufferConcat(address: string, amount: number): Buffer {
@@ -29,8 +30,8 @@ function bufferConcat(address: string, amount: number): Buffer {
 }
 /**
  * @description: 创建默克尔树的根哈希把 同时把数组中所有的参数必须转换为solidity中对应的类型
- * @param WhitelistEntry[]
- * @return string
+ * @param {WhitelistEntry[]} list 数据数组
+ * @return {Object} 包含默克尔树跟哈希和默克尔树结构
  * @date 2024/07/09 15:20:08
  */
 function createMerkleTreeHexRoot(list: WhitelistEntry[]): {
@@ -47,10 +48,10 @@ function createMerkleTreeHexRoot(list: WhitelistEntry[]): {
 }
 /**
  * @description: 校验proof是否存在于某个树中
- * @param tree MerkleTree; 树
- * @param proof any[]; 证明
- * @param targetNode Buffer | string; 叶子节点
- * @param root Buffer | string; 根哈希
+ * @param {MerkleTree} tree
+ * @param {any[]} proof 证明
+ * @param {Buffer | string} targetNode 叶子节点
+ * @param {Buffer | string} root 根哈希
  * @return boolean
  * @date 2024/07/09 15:23:09
  */

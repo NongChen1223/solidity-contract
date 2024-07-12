@@ -1,4 +1,3 @@
-import { MerkleTree } from "merkletreejs";
 import keccak256 from "keccak256";
 import dotenv from "dotenv";
 import { createMerkleTreeHexRoot, verifyProof, bufferConcat } from "../tools/merkleTree";

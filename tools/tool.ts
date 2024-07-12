@@ -5,8 +5,8 @@ dotenv.config();
 const web3 = new Web3(process.env.WEB3_RPC_OPBNB);
 /**
  * @description: 数据类型转换为ABI的类型
- * @param param:string | Object 数字类型
- * @param type:string solidity 中的类型 例如 "uint256"
+ * @param {string | Object} param 要转换的数据
+ * @param {string} type solidity 中的类型 例如 "uint256"
  * @return
  * @date 2024/07/11 17:21:29
  */
