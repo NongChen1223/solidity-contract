@@ -1,8 +1,8 @@
 import { ethers, upgrades } from "hardhat";
 import dotenv from "dotenv";
 dotenv.config();
-async function deployT1Airdrop() {
-	const Airdrop = await ethers.getContractFactory("T1_Airdrop");
+async function deployAirdrop() {
+	const Airdrop = await ethers.getContractFactory("TokenAirdrop");
 
 	const [owner] = await ethers.getSigners();
 
@@ -16,8 +16,8 @@ async function deployT1Airdrop() {
 		`);
 
 	// @ts-ignore
-	const airdrop = await upgrades.deployProxy(Airdrop, [tokenAddress, merkleRoot], {
-		initializer: "initialize",
+	const airdrop = await upgrades.deployProxy(Airdrop, [], {
+		initializer: false,
 		timeout: 600000, // 10 minutes timeout
 		pollingInterval: 15000, // 15 seconds polling interval
 	});
@@ -35,7 +35,7 @@ async function deployT1Airdrop() {
 }
 async function main() {
 	try {
-		await deployT1Airdrop();
+		await deployAirdrop();
 	} catch (err) {
 		console.log("发布失败！！！！", err);
 	}

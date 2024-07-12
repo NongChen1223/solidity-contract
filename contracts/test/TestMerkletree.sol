@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../libs/MerkleProof.sol"; // 导入 MerkleProof 证明函数
-contract test_merkletree is Initializable {
+contract TestMerkletree is Initializable {
     using MerkleProof for bytes32[];
     bytes32 public merkleRoot;
 
