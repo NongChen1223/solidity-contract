@@ -39,18 +39,13 @@ async function setRootAndToken() {
 		const gasPrice = await web3.eth.getGasPrice();
 		console.log("获取当前gasPrice", gasPrice);
 
-		let gasEstimate;
-		try {
-			// 估算交易所需的gas量
-			gasEstimate = await web3.eth.estimateGas({
-				from: owner,
-				to: AIR_ADDRESS,
-				data: data,
-			});
-			console.log(`估算该笔交易需要的gas: ${gasEstimate}`);
-		} catch (error) {
-			console.error("估算Gas失败:", error);
-		}
+		// 估算交易所需的gas量
+		const gasEstimate = await web3.eth.estimateGas({
+			from: owner,
+			to: AIR_ADDRESS,
+			data: data,
+		});
+		console.log(`估算该笔交易需要的gas: ${gasEstimate}`);
 
 		//打包交易信息
 		const tx = {
