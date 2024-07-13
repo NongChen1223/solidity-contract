@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import Web3 from "web3";
 import { abi } from "../artifacts/contracts/airdrop/TokenAirdrop.sol/TokenAirdrop.json";
+import { getL1TokenBalance } from "viem/zksync";
 dotenv.config();
 
 //初始化web3
@@ -8,6 +9,9 @@ const web3 = new Web3(process.env.WEB3_RPC_OPBNB); // 替换为你的以太坊�
 
 //空投合约地址
 const AIR_ADDRESS = process.env.AIR_CONTRACT_ADDRESS_OPBNB;
+
+//代币地址
+const TOKEN_ADDRESS = process.env.TOKEN_CONTRACT_ADDRESS_OPBNB;
 
 //默克尔树根哈希
 const rootHex = process.env.HASH_ROOT;
@@ -17,6 +21,10 @@ const contract = new web3.eth.Contract(abi, AIR_ADDRESS);
 
 //地址私钥
 const PRIVATE_KEY = `0x${process.env.PRIVATE_KEY}`; //需要手动拼接0x
+async function getTokenBalance() {
+	const balance: string = await contract.methods.getBalance().call();
+	console.log("地址余额:", balance, web3.utils.fromWei(Number(balance), "ether"));
+}
 
 async function setRootAndToken() {
 	if (!PRIVATE_KEY) return;
@@ -32,17 +40,17 @@ async function setRootAndToken() {
 		console.log("owner地址", owner);
 
 		// 传入参数setTokenAndRoot后使用encodeABI()编码
-		const data = contract.methods.setTokenAndRoot(AIR_ADDRESS, rootHex).encodeABI();
+		const data = contract.methods.setTokenAndRoot(TOKEN_ADDRESS, rootHex).encodeABI();
 
 		console.log("encodeABI成功...");
 		// 获取当前gas price
 		const gasPrice = await web3.eth.getGasPrice();
 		console.log("获取当前gasPrice", gasPrice);
 
-		// 估算交易所需的gas量
+		// 该方法用于估算某个智能合约方法或是发送交易量所需要的gas费用
 		const gasEstimate = await web3.eth.estimateGas({
 			from: owner,
-			to: AIR_ADDRESS,
+			to: AIR_ADDRESS, //需要交互的智能合约地址
 			data: data,
 		});
 		console.log(`估算该笔交易需要的gas: ${gasEstimate}`);
@@ -68,4 +76,5 @@ async function setRootAndToken() {
 		console.log("交易失败", err);
 	}
 }
-setRootAndToken();
+// setRootAndToken();
+getTokenBalance();
