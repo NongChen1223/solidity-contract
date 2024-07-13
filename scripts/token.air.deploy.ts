@@ -16,8 +16,8 @@ async function deployAirdrop() {
 		`);
 
 	// @ts-ignore
-	const airdrop = await upgrades.deployProxy(Airdrop, [], {
-		initializer: false,
+	const airdrop = await upgrades.deployProxy(Airdrop, [owner.address], {
+		initializer: "initialize",
 		timeout: 600000, // 10 minutes timeout
 		pollingInterval: 15000, // 15 seconds polling interval
 	});
